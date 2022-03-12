@@ -40,16 +40,22 @@ INSTALLED_APPS = [
 ]
 
 _APPS =[
-    'auth',
+    'core',
 ]
 
 _MODULES =[
+    'allauth', # new
+    'allauth.account', # new
+    'allauth.socialaccount', # new
+    'allauth.socialaccount.providers.github', # new
 
 ]
 
 INSTALLED_APPS += _APPS
 INSTALLED_APPS += _MODULES
 
+
+AUTH_USER_MODEL = 'core.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
