@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
+
 class School(models.Model):
     school = models.CharField(max_length=255, unique=True)
 
@@ -26,8 +27,8 @@ class User(AbstractUser):
 
 	base_type = Types.SECRETARY
 	type = models.CharField(_("Type"), max_length=50, choices=Types.choices)
-	department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.CASCADE)
-                        
+	department = models.ForeignKey(Department, blank=True, null=True, default=1, on_delete=models.CASCADE)
+         
 	def get_absolute_url(self):
 		return reverse("users:detail", kwargs={"username": self.username})
 
@@ -36,7 +37,7 @@ class User(AbstractUser):
 		if not self.id:
 			self.type = self.base_type
 		return super().save(*args, **kwargs)
-
+    
 
 class DepartmentManager(models.Manager):
 	def get_queryset(self, *args, **kwargs):
