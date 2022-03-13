@@ -1,7 +1,22 @@
+from tkinter.tix import Tree
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+
+class School(models.Model):
+    school = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.school
+
+class Department(models.Model):
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    department = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.department
 
 
 class User(AbstractUser):
@@ -11,10 +26,8 @@ class User(AbstractUser):
 
 	base_type = Types.SECRETARY
 	type = models.CharField(_("Type"), max_length=50, choices=Types.choices)
-
-	name = models.CharField(_("Name of User"), blank = True, max_length = 255)
-
-
+	department = models.ForeignKey(Department, blank=True, null=True, on_delete=models.CASCADE)
+                        
 	def get_absolute_url(self):
 		return reverse("users:detail", kwargs={"username": self.username})
 
@@ -23,7 +36,6 @@ class User(AbstractUser):
 		if not self.id:
 			self.type = self.base_type
 		return super().save(*args, **kwargs)
-
 
 
 class DepartmentManager(models.Manager):
@@ -64,4 +76,6 @@ class Secretary(User):
 
 	class Meta:
 		proxy = True
+
+
 
