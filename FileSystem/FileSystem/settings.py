@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 ]
 
 _APPS =[
-    'core',
+    'a_users',
 ]
 
 _MODULES =[
@@ -55,7 +55,7 @@ INSTALLED_APPS += _APPS
 INSTALLED_APPS += _MODULES
 
 
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = 'a_users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

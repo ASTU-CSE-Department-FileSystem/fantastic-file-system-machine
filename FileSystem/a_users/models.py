@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
-
 class User(AbstractUser):
 	class Types(models.TextChoices):
 		DEPARTMENT_HEAD = "HEAD", "Head"
@@ -39,10 +38,6 @@ class SecretaryManager(models.Manager):
 class DepartmentHeadMore(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-
-
-class DepartmentHeadMore(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class DepartmentHead(User):
