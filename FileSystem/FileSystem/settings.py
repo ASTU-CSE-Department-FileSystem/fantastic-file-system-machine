@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
 _APPS =[
     'a_users',
+    'core',
 ]
 
 _MODULES =[
