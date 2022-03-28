@@ -45,10 +45,10 @@ _APPS =[
 ]
 
 _MODULES =[
-    'allauth', # new
-    'allauth.account', # new
-    'allauth.socialaccount', # new
-    'allauth.socialaccount.providers.github', # new
+    # 'allauth', # new
+    # 'allauth.account', # new
+    # 'allauth.socialaccount', # new
+    # 'allauth.socialaccount.providers.github', # new
 
 ]
 
