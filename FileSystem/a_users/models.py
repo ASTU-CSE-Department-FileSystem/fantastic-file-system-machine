@@ -12,7 +12,6 @@ class User(AbstractUser):
 	base_type = Types.SECRETARY
 	type = models.CharField(_("Type"), max_length=50, choices=Types.choices)
 
-	name = models.CharField(_("Name of User"), blank = True, max_length = 255)
 
 
 	def get_absolute_url(self):
