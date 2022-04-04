@@ -1,24 +1,8 @@
 import os
-from fpdf import FPDF
 from .forms import DocumentForm
 from django.views.generic.edit import FormView
 from tempfile import NamedTemporaryFile
-from PIL import Image
-
-def pdfMaker(images):
-    print("I am here")
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    for image in images:
-        cover = Image.open(image)
-        X, Y = cover.size
-        if X > Y:
-            cover = cover.rotate(-90, expand=True)  
-            cover.save(image)
-        pdf.image(image, 0,0,w=210)
-        pdf.add_page()  
-    pdf.output("test.pdf", "F")
+from .tasks import pdfMaker
 
 class DocumentFormView(FormView):
     form_class = DocumentForm
@@ -33,12 +17,13 @@ class DocumentFormView(FormView):
             for file in files:
                 ext = file.name.split('.')[-1]
                 if ext.lower() in extentions:
-                    newfile = NamedTemporaryFile(delete=False, suffix='.'+ext)
+                    newfile = NamedTemporaryFile(suffix='.'+ext, delete=False)
+                    # print(newfile.tempdir)
                     newfile.write(file.read())
                     fls.append(newfile.name)
                     newfile.close()
 
-            pdfMaker(fls)
+            pdfMaker.delay(fls)
             # delete the temporary files
             for file in fls:
                 os.remove(file)
