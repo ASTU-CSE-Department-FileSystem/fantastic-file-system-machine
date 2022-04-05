@@ -25,6 +25,7 @@ class DocumentFormView(FormView):
 
             pdfMaker.delay(fls)
             # delete the temporary files
+            print("It's done man")
             for file in fls:
                 os.remove(file)
             return self.form_valid(form)
